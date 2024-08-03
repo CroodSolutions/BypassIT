@@ -26,6 +26,7 @@ We welcome and encourage contributions, participation, and feedback - as long as
 --- Acknowledgments ---
 
 This project would not have been possible without the outstanding contributions of these key researchers:
+
 AnuraTheAmphibian
 
 christian-taillon
@@ -41,6 +42,7 @@ shammahwoods
 Also, this builds upon prior research done by many outstanding security professionals who have paved the way:
 
 0xToxin  
+
 V1V1
 
 (this project is in beta, so we are still organizing our notes on acknowledgements - more to follow)
