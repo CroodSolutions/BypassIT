@@ -35,7 +35,8 @@ shammahwoods
 
 Also, this builds upon prior research done by many outstanding security professionals who have paved the way:
 
-0xToxin 
+0xToxin  
+
 V1V1
 
 (this project is in beta, so we are still organizing our notes on acknowledgements - more to follow)
