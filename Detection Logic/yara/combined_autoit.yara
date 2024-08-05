@@ -46,14 +46,14 @@ rule Combined_AutoIt_Detection
             (uint16(0) == 0x5A4D and (
                 $magic_v326 or
                 $magic_v300 or
-                4 of ($str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8) or
+                3 of ($str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8) or
                 any of ($str9, $str10, $str11, $str12, $str13, $str14, $str15)
             ))
         ) or (
             // Match scripts
             (uint16(0) != 0x5A4D and (
                 any of ($str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8, $str9, $str10, $str11, $str12, $str13, $str14, $str15) or
-                5 of ($func1, $func2, $func3, $func4, $func5, $func6, $func7, $func8, $func9, $func10)
+                4 of ($func1, $func2, $func3, $func4, $func5, $func6, $func7, $func8, $func9, $func10)
             ))
         )
 }
