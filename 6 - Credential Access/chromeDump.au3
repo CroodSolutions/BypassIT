@@ -5,8 +5,8 @@
 ; Set the path to your Chrome user data directory
 Local $chromeDataPath = @LocalAppDataDir & "\Google\Chrome\User Data"
 
-; Set the backup destination to the root directory in a folder called 'win64x'
-Local $backupPath = "C:\win64x\ChromeBackup_" & @YEAR & @MON & @MDAY & "_" & @HOUR & @MIN
+; Set the backup destination to the root directory in a folder called 'tmp'
+Local $backupPath = "C:\tmp\ChromeBackup_" & @YEAR & @MON & @MDAY & "_" & @HOUR & @MIN
 
 ; Create the backup directory
 DirCreate($backupPath)
