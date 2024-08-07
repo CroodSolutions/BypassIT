@@ -1,3 +1,9 @@
+#comments-start 
+
+You will need to update the address and username for this script to work.  While I tried to get this to pass along the password for a more seamless experience, that part did not really work, in the sense that it prompted for it anyway.  That said, it does not really matter, because if you are in this stage of an engagement it ment that credential access gave you what you needed to connect to another host, so typing it in again is probably not a big deal.  
+
+#comments-end
+
 #include <FileConstants.au3>
 #include <MsgBoxConstants.au3>
 
