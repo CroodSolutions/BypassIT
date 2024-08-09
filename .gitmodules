@@ -1,3 +1,0 @@
-[submodule "Detection/yara/detect-autoit"]
-	path = Detection/yara/detect-autoit
-	url = https://github.com/christian-taillon/detect-autoit
