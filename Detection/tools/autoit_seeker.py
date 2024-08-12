@@ -12,6 +12,20 @@ from typing import List, Dict
 from rich import print
 from rich.console import Console
 from rich.table import Table
+from rich import print as rprint
+
+def print_banner():
+    banner = """
+__________                                   .______________ __________                                          .__     
+\\______   \\___.__.___________    ______ _____|   \\__    ___/ \\______   \\ ____   ______ ____ _____ _______   ____ |  |__  
+ |    |  _<   |  |\\____ \\__  \\  /  ___//  ___/   | |    |     |       _// __ \\ /  ___// __ \\\\__  \\\\_  __ \\_/ ___\\|  |  \\ 
+ |    |   \\\\___  ||  |_> > __ \\_\\___ \\ \\___ \\|   | |    |     |    |   \\  ___/ \\___ \\\\  ___/ / __ \\|  | \\/\\  \\___|   Y  \\\\
+ |______  // ____||   __(____  /____  >____  >___| |____|     |____|_  /\\___  >____  >\\___  >____  /__|    \\___  >___|  /
+        \\/ \\/     |__|       \\/     \\/     \\/                        \\/     \\/     \\/     \\/     \\/            \\/     \\/ 
+    """
+    rprint("[bold cyan]" + banner + "[/bold cyan]")
+
+
 
 def setup_logging(log_to_file: bool) -> None:
     log_format = '%(asctime)s - %(levelname)s - %(message)s'
@@ -193,6 +207,8 @@ def analyze_files(path: str) -> Dict[str, List[str]]:
     return all_matches
 
 def main():
+    print_banner()  # Add this line at the beginning of the main function
+
     args = parse_arguments()
     setup_logging(args.log_to_file)
 
