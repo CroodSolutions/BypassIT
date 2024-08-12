@@ -28,6 +28,9 @@ rule Combined_AutoIt_Detection
         $str14 = "/AutoIt3OutputDebug"
         $str15 = ">>>AUTOIT SCRIPT<<<"
 
+        // Import AutoIt functions
+        $imp1 = "#include\s+<\w+\.(au3|a3x)\>" nocase wide ascii fullword 
+
         // Common AutoIt functions
         $func1 = "NoTrayIcon" nocase wide ascii fullword
         $func2 = "iniread" nocase wide ascii fullword
@@ -55,5 +58,8 @@ rule Combined_AutoIt_Detection
                 any of ($str1, $str2, $str3, $str4, $str5, $str6, $str7, $str8, $str9, $str10, $str11, $str12, $str13, $str14, $str15) or
                 4 of ($func1, $func2, $func3, $func4, $func5, $func6, $func7, $func8, $func9, $func10)
             ))
+        ) or (
+           $imp1  
         )
+
 }
