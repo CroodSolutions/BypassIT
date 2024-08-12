@@ -63,6 +63,10 @@ Local $powershell_contents = 'add-type -AssemblyName System.Windows.Forms' & @CR
 		  '' & @CRLF & _
 		  '[System.Windows.Forms.SendKeys]::SendWait("{ENTER}")' & @CRLF
 FileWrite("C:\Windows\Tasks\cmstp.ps1", $powershell_contents)		  
+RunWait('cmstp.exe /au C:\Windows\Tasks\cmstp.ini', @WorkingDir, @SW_SHOWNORMAL)
+RunWait('powershell.exe -c "Start-Sleep -Milliseconds 200"', @WorkingDir, @SW_SHOWNORMAL)
+RunWait('powershell.exe -c ''[System.Windows.Forms.SendKeys]::SendWait("{ENTER}")''', @WorkingDir, @SW_SHOWNORMAL)
 ;Finally invoke powershell
-Local $pid = Run(@ComSpec & " /c powershell.exe C:\Windows\Tasks\cmstp.ps1", @WorkingDir, @SW_HIDE)
+;When this command is run from regular command prompt, we can set execution policy and run the scrupt. However, autoit doesn't seem to do that... the Script is blocked
+;RunWait('cmd.exe /c start powershell.exe -noexit -c "Set-ExecutionPolicy -ExecutionPolicy Unrestricted;C:\Windows\Tasks\cmstp.ps1"', @WorkingDir, @SW_SHOWNORMAL)
 
