@@ -15,13 +15,14 @@ from rich.table import Table
 from rich import print as rprint
 
 def print_banner():
-    banner = """
+    banner = r"""
     ___         __        __________   _____           __            
    /   | __  __/ /_____  /  _/_  __/  / ___/___  ___  / /_____  _____
-  / /| |/ / / / __/ __ \ / /  / /     \__ \/ _ \/ _ \/ //_/ _ \/ ___/
+  / /| |/ / / / __/ __ \\ / /  / /     \\__ \\/ _ \\/ _ \\/ //_/ _ \\/ ___/
  / ___ / /_/ / /_/ /_/ // /  / /     ___/ /  __/  __/ ,< /  __/ /    
-/_/  |_\__,_/\__/\____/___/ /_/     /____/\___/\___/_/|_|\___/_/     
-                                                                     
+/_/  |_\\__,_/\\__/\\____/___/ /_/     /____/\\___/\\___/_/|_|\\___/_/     
+
+**Note: Work In Progress: Presenly only effecient at identifying hidden .au3 scripts.**                                                                 
     """
     rprint("[bold cyan]" + banner + "[/bold cyan]")
 
