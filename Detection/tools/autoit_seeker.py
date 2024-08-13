@@ -9,24 +9,23 @@ from argparse import ArgumentParser, Namespace
 from collections import defaultdict
 from datetime import datetime
 from typing import List, Dict
-from rich import print
+from rich import print as rprint
 from rich.console import Console
 from rich.table import Table
-from rich import print as rprint
 
 def print_banner():
     banner = r"""
-    ___         __        __________   _____           __            
-   /   | __  __/ /_____  /  _/_  __/  / ___/___  ___  / /_____  _____
-  / /| |/ / / / __/ __ \\ / /  / /     \\__ \\/ _ \\/ _ \\/ //_/ _ \\/ ___/
- / ___ / /_/ / /_/ /_/ // /  / /     ___/ /  __/  __/ ,< /  __/ /    
-/_/  |_\\__,_/\\__/\\____/___/ /_/     /____/\\___/\\___/_/|_|\\___/_/     
+ _______  __   __  _______  _______  ___   _______    _______  _______  _______  ___   _  _______  ______   
+|   _   ||  | |  ||       ||       ||   | |       |  |       ||       ||       ||   | | ||       ||    _ |  
+|  |_|  ||  | |  ||_     _||   _   ||   | |_     _|  |  _____||    ___||    ___||   |_| ||    ___||   | ||  
+|       ||  |_|  |  |   |  |  | |  ||   |   |   |    | |_____ |   |___ |   |___ |      _||   |___ |   |_||_ 
+|       ||       |  |   |  |  |_|  ||   |   |   |    |_____  ||    ___||    ___||     |_ |    ___||    __  |
+|   _   ||       |  |   |  |       ||   |   |   |     _____| ||   |___ |   |___ |    _  ||   |___ |   |  | |
+|__| |__||_______|  |___|  |_______||___|   |___|    |_______||_______||_______||___| |_||_______||___|  |_|
 
-**Note: Work In Progress: Presenly only effecient at identifying hidden .au3 scripts.**                                                                 
+**Note: Work In Progress: Presently only efficient at identifying hidden .au3 scripts.**
     """
     rprint("[bold cyan]" + banner + "[/bold cyan]")
-
-
 
 def setup_logging(log_to_file: bool) -> None:
     log_format = '%(asctime)s - %(levelname)s - %(message)s'
@@ -43,6 +42,7 @@ def parse_arguments() -> Namespace:
     group.add_argument("-p", "--path", help="Path to the directory to search.")
     group.add_argument("-f", "--file", help="File path to search within.")
     parser.add_argument("--log-to-file", action="store_true", help="Log output to a file instead of console.")
+    parser.add_argument("-o", "--output", choices=['yaml', 'csv', 'json', 'rich'], default='rich', help="Output format for results.")
     return parser.parse_args()
 
 def read_file(filepath: str) -> List[str]:
@@ -144,31 +144,47 @@ def format_output(matches: Dict[str, List[str]], output_format: str) -> None:
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 
-    if output_format == 'yaml':
-        output_file = f"autoit_seeker_results-{timestamp}.yaml"
-        with open(output_file, 'w', encoding='utf-8') as yamlfile:
-            yaml.dump(final_output, yamlfile, default_flow_style=False)
-        print(f"Results saved to {output_file}")
+    # Always print rich text output
+    console = Console()
 
-    elif output_format == 'csv':
-        output_file = f"autoit_seeker_results-{timestamp}.csv"
-        with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(['File', 'Matches'])
-            for file, matches in final_output.items():
-                writer.writerow([file, '\\n'.join(matches)])
-        print(f"Results saved to {output_file}")
+    # Section 1: Files with the most hits
+    console.print("[bold blue]Files with the most hits:[/bold blue]")
+    table = Table(show_header=True, header_style="bold magenta")
+    table.add_column("File Name", style="cyan")
+    table.add_column("Number of Hits", style="green")
 
-    elif output_format == 'json':
-        output_file = f"autoit_seeker_results-{timestamp}.json"
-        with open(output_file, 'w', encoding='utf-8') as jsonfile:
-            json.dump(final_output, jsonfile, indent=4)
-        print(f"Results saved to {output_file}")
+    for file, matches in sorted(final_output.items(), key=lambda x: len(x[1]), reverse=True):
+        table.add_row(file, str(len(matches)))
 
-    else:  # Rich colorized output
-        console = Console()
+    console.print(table)
 
-        # Section 1: Files with the most hits
+    # Section 2: Individual hits
+    console.print("\\n[bold blue]Individual hits:[/bold blue]")
+    for file, matches in final_output.items():
+        console.print(f"[bold cyan]{file}[/bold cyan]")
+        for match in matches:
+            console.print(f"  [green]{match}[/green]")
+        console.print()
+
+    # Output file based on user's choice
+    if output_format != 'rich':
+        if output_format == 'yaml':
+            output_file = f"autoit_seeker_results-{timestamp}.yaml"
+            with open(output_file, 'w', encoding='utf-8') as yamlfile:
+                yaml.dump(final_output, yamlfile, default_flow_style=False)
+        elif output_format == 'csv':
+            output_file = f"autoit_seeker_results-{timestamp}.csv"
+            with open(output_file, 'w', newline='', encoding='utf-8') as csvfile:
+                writer = csv.writer(csvfile)
+                writer.writerow(['File', 'Matches'])
+                for file, matches in final_output.items():
+                    writer.writerow([file, '\\n'.join(matches)])
+        elif output_format == 'json':
+            output_file = f"autoit_seeker_results-{timestamp}.json"
+            with open(output_file, 'w', encoding='utf-8') as jsonfile:
+                json.dump(final_output, jsonfile, indent=4)
+        
+        console.print(f"[bold green]Results saved to {output_file}[/bold green]")
         console.print("[bold blue]Files with the most hits:[/bold blue]")
         table = Table(show_header=True, header_style="bold magenta")
         table.add_column("File Name", style="cyan")
@@ -179,7 +195,6 @@ def format_output(matches: Dict[str, List[str]], output_format: str) -> None:
 
         console.print(table)
 
-        # Section 2: Individual hits
         console.print("\\n[bold blue]Individual hits:[/bold blue]")
         for file, matches in final_output.items():
             console.print(f"[bold cyan]{file}[/bold cyan]")
@@ -187,11 +202,10 @@ def format_output(matches: Dict[str, List[str]], output_format: str) -> None:
                 console.print(f"  [green]{match}[/green]")
             console.print()
 
-    # Always save a YAML version for reference
     reference_file = f"autoit_seeker_results-{timestamp}-reference.yaml"
     with open(reference_file, 'w', encoding='utf-8') as yamlfile:
         yaml.dump(final_output, yamlfile, default_flow_style=False)
-    print(f"Reference results saved to {reference_file}")
+    rprint(f"[bold green]Reference results saved to {reference_file}[/bold green]")
 
 def analyze_files(path: str) -> Dict[str, List[str]]:
     all_matches = {}
@@ -208,7 +222,7 @@ def analyze_files(path: str) -> Dict[str, List[str]]:
     return all_matches
 
 def main():
-    print_banner()  # Add this line at the beginning of the main function
+    print_banner()
 
     args = parse_arguments()
     setup_logging(args.log_to_file)
@@ -220,8 +234,7 @@ def main():
         logging.info("No suspicious patterns found.")
     else:
         logging.info("Analysis complete. Suspicious patterns found.")
-        output_format = input("Select output format (YAML, CSV, JSON, or RICH): ").strip().lower()
-        format_output(all_matches, output_format)
+        format_output(all_matches, args.output)
 
     logging.info("Analysis finished.")
 
