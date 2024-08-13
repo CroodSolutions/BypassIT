@@ -1,3 +1,25 @@
+# Project Specific 
 Detection/downloads/*
 yara_results*.txti
 autoit_seeker_results*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
