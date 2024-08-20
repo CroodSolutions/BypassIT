@@ -40,7 +40,7 @@ Global $psScript = _
 "}" & @CRLF & _
 "" & @CRLF & _
 "# Define the output file path" & @CRLF & _
-"$outputFilePath = Join-Path -Path (Get-Location) -ChildPath 'output.txt'" & @CRLF & _
+"$outputFilePath = '" & $outputFilePath & "'" & @CRLF & _
 "Remove-Item $outputFilePath -ErrorAction Ignore" & @CRLF & _
 "" & @CRLF & _
 "# Get local networks" & @CRLF & _
@@ -49,18 +49,18 @@ Global $psScript = _
 "# Check if there are any active network interfaces" & @CRLF & _
 "if ($localNetworks) {" & @CRLF & _
 "    foreach ($network in $localNetworks) {" & @CRLF & _
-"        $output = 'Scanning network interface: $($network.Name)`n'" & @CRLF & _
+"        $output = 'Scanning network interface: ' + $network.Name + '`n'" & @CRLF & _
 "        Add-Content -Path $outputFilePath -Value $output" & @CRLF & _
 "        $targetIP = $network.IPAddress" & @CRLF & _
 "        $openPorts = @()" & @CRLF & _
-"        $portsToScan = 21,22,25,80,443,135,137,139,445,3389,8080,9000  # You can change the range of ports to scan here" & @CRLF & _
+"        $portsToScan = 21,22,25,80,443,135,137,139,3389,8080,9000  # You can change the range of ports to scan here" & @CRLF & _
 "        foreach ($port in $portsToScan) {" & @CRLF & _
 "            $isOpen = Test-Port -TargetHost $targetIP -Port $port" & @CRLF & _
 "            if ($isOpen) {" & @CRLF & _
 "                $openPorts += $port" & @CRLF & _
 "            }" & @CRLF & _
 "        }" & @CRLF & _
-"        $output = 'Host: $targetIP, Open Ports: $($openPorts -join ', ')`n'" & @CRLF & _
+"        $output = 'Host: ' + $targetIP + ', Open Ports: ' + ($openPorts -join ', ') + '`n'" & @CRLF & _
 "        Add-Content -Path $outputFilePath -Value $output" & @CRLF & _
 "    }" & @CRLF & _
 "} else {" & @CRLF & _
@@ -89,3 +89,4 @@ If FileExists($outputFilePath) Then
 Else
     MsgBox($MB_OK, "Error", "Failed to write network scan results to " & $outputFilePath)
 EndIf
+
