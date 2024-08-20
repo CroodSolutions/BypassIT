@@ -1,0 +1,1 @@
+These techniques work best when run as administrator, so they will usually need to be combined with a privilege escalation or UAC bypass, for red team testers.  For blue / purple teams looking to validate defense and detection, simply right-click Run as Administrator on the exe version (or recompile any edited versions using AutoIT and then run as administrator).  
