@@ -2,7 +2,7 @@
 
 ## --- Introduction ---
 
-We now introduce BypassIT as a project to work toward a framework for covert delivery of malware using AutoIT and other Live off the Land (LotL) tools to deliver payloads and to avoid detection. These techniques were derived from reversing attacks observed in the wild by DarkGate and other MaaS actors, revealing universal principles and methods useful for red teaming or internal testing. The framework will consist of a series of tools, techniques, and methods along with testing and reporting on effectiveness, as it relates to multiple specific antivirus products.
+We now introduce BypassIT as a project to work toward a framework for covert delivery of malware using AutoIT and other Live off the Land (LotL) tools to deliver payloads and to avoid detection. These techniques were derived from reversing attacks observed in the wild by DarkGate and other MaaS actors, revealing universal principles and methods useful for red teaming or internal testing. The framework will consist of a series of tools, techniques, and methods along with testing and reporting on effectiveness.
 
 There are other excellent projects that have talked specifically about the use of AutoIT such as the outstanding resources created by V1V1 (Offensive AutoIT) that we will link to in the resources section. However, some of these projects have not been updated recently in response to recent adversary activity, so it is our intention to build upon and reference these awesome prior projects, while continuing to develop both new offensive scripts that will be tested and maintained as well as new detection logic and tools to better protect against AutoIT-based attacks.  
 
