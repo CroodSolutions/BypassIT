@@ -1,0 +1,1 @@
+The CreateNewUser and AddScriptToRegistry scripts were adapted from the original AHK work contributed by AnuraTheAmphibian.  These original scripts have been moved to a new repository, called AutoPwnKey.  Most of these require run as administrator to work, although the AddScriptToRegistry.au3 seems to work via the AutoIT interpreter also.  
