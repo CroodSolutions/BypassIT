@@ -39,7 +39,8 @@ This project would not have been possible without the outstanding contributions 
 - [flawdC0de](https://github.com/flawdC0de)
 - [Kitsune-Sec](https://github.com/Kitsune-Sec)
 - [shammahwoods](https://github.com/shammahwoods)
-- [matt-handy](https://github.com/matt-handy) 
+- [matt-handy](https://github.com/matt-handy)
+- [rayzax](https://github.com/rayzax)
 
 Also, this builds upon prior research done by many outstanding security professionals who have paved the way:
 
