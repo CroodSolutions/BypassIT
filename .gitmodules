@@ -1,3 +1,6 @@
 [submodule "Detection/sigma-detect-autoit"]
 	path = Detection/sigma-detect-autoit
 	url = https://github.com/christian-taillon/detect-autoit
+[submodule "Detection/tools/BypassIT/Detection/tools"]
+	path = Detection/tools/BypassIT/Detection/tools
+	url = git@github.com:christian-taillon/AutoIT-Seeker.git
